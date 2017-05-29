@@ -15,6 +15,7 @@
 </head>
 <body>
     <div id="app">
+
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -66,6 +67,9 @@
                                 </ul>
                             </li>
                         @endif
+
+                        <li><a href="{{ route('lang', ['lang'=>'ru']) }}">RU</a></li>
+                        <li><a href="{{ route('lang', ['lang'=>'en']) }}">EN</a></li>
                     </ul>
                 </div>
             </div>

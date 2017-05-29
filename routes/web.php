@@ -11,10 +11,25 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('welcome/{locale}', function ($locale) {
+    //return dd($locale);
+    App::setLocale($locale);
+    return view('home');
+    //
+});
+
+Route::get('lang/{lang}', [
+    'as' => 'lang',
+    'uses' => 'Controller@setlocale'
+])->where(['lang' => '[a-z]+']);
+
+Auth::routes();
