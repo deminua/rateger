@@ -16,14 +16,13 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
-    'login'=>'Login',
-    'register'=>'Register',
-    'name'=>'Name',
-    'email'=>'E-Mail Address',
-    'remember'=>'Remember Me',
-    'password'=>'Password',
-    'forgot_password'=>'Forgot Your Password?',
-    'password-confirm'=>'Confirm Password',
-
+    'login'=>'Вход',
+    'register'=>'Регистрация',
+    'name'=>'Имя',
+    'email'=>'E-Mail адресс',
+    'remember'=>'Запомнить меня',
+    'password'=>'Пароль',
+    'forgot_password'=>'Забыли пароль?',
+    'password-confirm'=>'Подтвердите пароль',
 ];
 

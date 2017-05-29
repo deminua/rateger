@@ -16,7 +16,7 @@
 <body>
     <div id="app">
 
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="#">123</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -68,14 +68,38 @@
                             </li>
                         @endif
 
-                        <li><a href="{{ route('lang', ['lang'=>'ru']) }}">RU</a></li>
-                        <li><a href="{{ route('lang', ['lang'=>'en']) }}">EN</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
+
+
+        <Sign></Sign>
+
+
         @yield('content')
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <ul class="list-unstyled list-inline">
+                            <li><a href="{{ route('login') }}">{{ __('menu.sign_in') }}</a></li>
+                            <li><a href="{{ route('register') }}">{{ __('menu.sign_up') }}</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-6 text-right">
+                        <ul class="list-unstyled list-inline">
+                            <li><a href="{{ route('lang', ['lang'=>'ru']) }}">{{ __('menu.russian') }}</a></li>
+                            <li><a href="{{ route('lang', ['lang'=>'en']) }}">{{ __('menu.english') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
     </div>
 
     <!-- Scripts -->

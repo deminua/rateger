@@ -14,7 +14,14 @@ class Controller extends BaseController
 
     public function setlocale(Request $request)
     {
-        session(['locale' => $request->lang]);
+        $lang = ['ru', 'en'];
+
+        if (in_array($request->lang, $lang)) {
+            session(['locale' => $request->lang]);
+        } else {
+            session(['locale' => 'ru']);
+        }
+
         return redirect()->back();
     }
 }
