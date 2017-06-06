@@ -29,9 +29,15 @@
                     </button>
 
                     <!-- Branding Image -->
+                    @if (Auth::guest())
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    @else
+                        <a class="navbar-brand" href="{{ route('user.show', ['slug'=>auth()->user()->slug]) }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -74,8 +80,6 @@
         </nav>
 
 
-
-        <Sign></Sign>
 
 
         @yield('content')

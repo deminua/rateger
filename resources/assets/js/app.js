@@ -8,10 +8,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-Vue.use(require('vue-resource-2'));
-Vue.use(require('vue-router'));
+//Vue.use(require('vue-resource-2'));
+//Vue.use(require('vue-router'));
 
-Vue.component('Sign', require('./components/Sign.vue'));
+//Vue.component('Sign', require('./components/Sign.vue'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
