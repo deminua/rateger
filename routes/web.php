@@ -27,6 +27,28 @@ Route::get('phpinfo', function () {
         phpinfo();
 });
 
+Route::get('encrypt', function () {
+
+    $data = "123";
+    $method = 'aes-256-cbc';
+    $key = '59b6ab46d379b89d794c87b74a511fbd';
+    $key = $key.$key;
+    $iv = '0aaff094b6dc29742cc98a4bac8bc8f9';
+
+    $e = openssl_encrypt( $data, $method, hex2bin( $key ), 0, hex2bin( $iv ));
+    echo 'Ciphertext: [', bin2hex( base64_decode( $e )), "]<br>";
+    echo 'Key:        [', $key, "]<br>";
+    echo 'Cleartext:  [', openssl_decrypt( $e, $method, hex2bin( $key ), 0, hex2bin( $iv )), "]<br>";
+
+    return view('home');
+    //$res = openssl_encrypt('xxx', 'aes-256-cbc', '59b6ab46d379b89d794c87b74a511fbd59b6ab46d379b89d794c87b74a511fbd');
+    //echo $res;
+    //echo '<hr>';
+    //echo openssl_decrypt("YpBavurXiTZ+Eb8P6+yIbWAckibQ0QJtKWMPq651dGo=",
+    //    "AES-128-ECB",
+    //    "59b6ab46d379b89d794c87b74a511fbd59b6ab46d379b89d794c87b74a511fbd");
+});
+
 Route::get('file_get', function () {
     $url = 'https://lh4.googleusercontent.com/-6cLUs-fV0_g/AAAAAAAAAAI/AAAAAAAAAMI/R_DLCKluo3o/photo.jpg';
     $url = 'https://media1.giphy.com/avatars/nikdudukovic/ylDRTR05sy6M.gif';
