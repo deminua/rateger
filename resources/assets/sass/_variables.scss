@@ -2,7 +2,7 @@
 // Body
 $body-bg: #fffaf3;
 
-$border-color: #000;
+$border-color: #333;
 
 // Borders
 $laravel-border-color: darken($border-color, 10%);
@@ -20,10 +20,11 @@ $brand-danger: #bf5329;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: Verdana, Geneva, sans-serif;
+//$font-family-sans-serif: "Roboto", "Helvetica Neue", Helvetica, sans-serif, Verdana, Geneva, sans-serif;
+$font-family-sans-serif: 'Roboto', sans-serif;
 $font-size-base: 18px;
 $line-height-base: 1.6;
-$text-color: #000000;
+$text-color: #333;
 
 // Navbar
 $navbar-default-bg: #fff;
