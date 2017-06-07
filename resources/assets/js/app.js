@@ -9,9 +9,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+/*var CryptoJS = require("crypto-js");
+Vue.use(CryptoJS);*/
+
+
 //Vue.use(require('vue-resource-2'));
 //Vue.use(require('vue-router'));
 
+//Vue.component('VueCrypt', require('./components/Vuecrypt.vue'));
 
 /*
 var CryptoJS = require("crypto-js");
@@ -46,12 +51,30 @@ console.log( 'Cleartext:  [' + decrypted.toString(CryptoJS.enc.Utf8) + ']');
 //import Sign from './components/Sign.vue';
 
 //Vue.component('example', require('./components/Example.vue'));
+Vue.component('vuecrypt', require('./components/Vuecrypt.vue'));
 //Vue.component('langdetect', require('./components/LangDetect.vue'));
 //Vue.component('rategermenu', require('./components/RategerMenu.vue'));
 //Vue.component('sign', require('./components/Sign.vue'));
 
 const app = new Vue({
     el: '#app',
-    //components: { Sign }
+    props: {
+       //messages: [String, Number],
+        //monthMessage: [String, Number],
+    }
+/*
+    data () {
+        return {
+            content: "I've been proxied!",
+        }
+    },
+*/
+
+
+    //components: {
+        // <my-component> будет доступен только в шаблоне родителя
+    //    'my-component': Child
+    //}
+    //components: { VueCrypt }
 });
 
