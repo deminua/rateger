@@ -23,6 +23,10 @@ Route::get('ip', function () {
     return \Request::getClientIp(true);
 });
 
+Route::get('msg', function () {
+    return view('user.msg');
+    });
+
 Route::get('phpinfo', function () {
         phpinfo();
 });
