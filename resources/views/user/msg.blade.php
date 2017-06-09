@@ -4,7 +4,7 @@
     //var socket = new WebSocket("ws://localhost:8081");
 
 
-    var socket = new WebSocket("ws://192.168.88.252:8081?token=123&id={{ $id }}");
+    var socket = new WebSocket("ws://192.168.88.252:8081?group={{ md5('123') }}&token=1233&id={{ $id }}");
 
     // отправить сообщение из формы publish
     document.forms.publish.onsubmit = function() {
