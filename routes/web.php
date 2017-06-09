@@ -23,8 +23,8 @@ Route::get('ip', function () {
     return \Request::getClientIp(true);
 });
 
-Route::get('msg', function () {
-    return view('user.msg');
+Route::get('msg/{id}', function ($id) {
+    return view('user.msg', ['id'=>$id]);
     });
 
 Route::get('phpinfo', function () {
