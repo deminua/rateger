@@ -20,7 +20,7 @@
             //var socket = new WebSocket("ws://localhost:8081");
 
 
-            var socket = new WebSocket("ws://176.100.166.193:8081?group={{ md5('123') }}&token=123&id={{ $id }}");
+            var socket = new WebSocket("ws://dserver.ddns.net:8081?group={{ md5('123') }}&token=123&id={{ $id }}");
 
             // отправить сообщение из формы publish
             document.forms.publish.onsubmit = function() {
