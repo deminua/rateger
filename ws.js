@@ -21,6 +21,12 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', function connection(ws, req) {
     const location = url.parse(req.url, true);
 
+    //start - API запрос данных
+    var request = require("request");
+    var api_req_url ='http://dserver.ddns.net/api/v1/user?api_token=WyB8SEc0AzVokK4pHlxiGuaAaSSg5tVsyesyrSYOhg2djeLGPhoRPphc2AGS';
+    //end - API запрос данных
+
+
     /*
     if(location.query.token != '123') {
         req.reject();
@@ -70,12 +76,30 @@ wss.on('connection', function connection(ws, req) {
     */
     //console.log(ws.upgradeReq);
 
+
     ws.on('message', function(message) {
         //console.log('получено сообщение ' + message);
         //console.log(rooms);
+
+        request({
+            url: api_req_url,
+            json: true
+        }, function (error, response, body) {
+
+            if (!error && response.statusCode === 200) {
+                //rooms[roomId][cl].send(JSON.stringify(body));
+                var response_json_body = JSON.stringify(body);
+                //console.log(body) // Print the json response
+            }
+        });
+
+
         for (var cl in rooms[roomId]) {
+
+
+            rooms[roomId][cl].send(response_json_body);
             //cl.send(message);
-            rooms[roomId][cl].send(message);
+            //rooms[roomId][cl].send(message);
             //cl[key].send(message);
         }
         //for (var cl in rooms[roomId]) {

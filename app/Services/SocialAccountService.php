@@ -52,6 +52,7 @@ class SocialAccountService
                         }
                   }
 
+            $user->api_token = str_random(60);
             $account->user()->associate($user);
             $account->save();
 
