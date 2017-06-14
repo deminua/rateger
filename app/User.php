@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token'
+        'password', 'remember_token',
     ];
 
     public static function urlStoreAvatar($url) {
@@ -75,4 +75,6 @@ class User extends Authenticatable
                 //'surname' => $providerUser->getNickname(),
             ]);
         }
+
+
 }

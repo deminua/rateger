@@ -20,4 +20,9 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::resource('user', 'APIController');
+
+    Route::get('ws', 'APIController@ws');
+
 });
+
+Route::get('auth_ws', 'APIController@auth_ws');

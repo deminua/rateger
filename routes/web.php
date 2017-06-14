@@ -23,6 +23,11 @@ Route::get('ip', function () {
     return \Request::getClientIp(true);
 });
 
+Route::get('session', function (\Request $request) {
+    //return  dd(session()->get('_token'));
+    return  dd(session());
+});
+
 Route::get('msg/{id}', function ($id) {
     return view('user.msg', ['id'=>$id]);
     });

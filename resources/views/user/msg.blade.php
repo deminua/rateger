@@ -13,13 +13,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-
     <script>
 
 
          function start(){
             // создать подключение
-            var socket = new WebSocket('ws://dserver.ddns.net:8081?group={{ md5('123') }}&token=123&id={{ $id }}');
+            var socket = new WebSocket('ws://dserver.ddns.net:8081?sid={{ session()->getId() }}');
 
             // отправить сообщение из формы publish
             document.forms.publish.onsubmit = function() {

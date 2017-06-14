@@ -39,96 +39,95 @@ wss.on('connection', function connection(ws, req) {
     // You might use location.query.access_token to authenticate or share sessions
     // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
 
-    var roomId = location.query.group;
-    var id = Math.round((Math.random() * 1000000));
-    //rooms[roomId] = clients;
-    //rooms[roomId] = {}
-
-        //clients[id] = ws;
-    //rooms[roomId][id] = {};
-    //clients[id] = ws;
-    user = {};
-    user[id] = ws;
-
-    if(Object.is(rooms[roomId])) {
-        rooms[roomId] = {};
-    }
-
-    rooms[roomId][id] = user[id];
-    //console.log(rooms);
-
-    //var roomId = location.query.id;
-    //rooms[roomId] = clients[id];
-    //console.log(ws.url);
-    //console.log("roomId " + roomId);
-    //console.log("rooms " + rooms);
-    //console.log("новое соединение " + id);
-
-    //rooms[roomId].push(clients[id]);
-    //onsole.log(rooms.length);
-    /*
-    for (var room in rooms[roomId]) {
-        console.log(room);
-    }
-    */
-    //console.log(ws.upgradeReq);
-
-
-    //start - API запрос данных
+    //var api_token = null;
     var request = require("request");
-    var api_req_url ='http://dserver.ddns.net/api/v1/user?api_token=WyB8SEc0AzVokK4pHlxiGuaAaSSg5tVsyesyrSYOhg2djeLGPhoRPphc2AGS';
-    //end - API запрос данных
-
-    ws.on('message', function(message) {
-        //console.log('получено сообщение ' + message);
-        //console.log(rooms);
 
 
+    //Авторизируемся по SID
+    var auth_ws ='http://dserver.ddns.net/api/auth_ws?sid='+location.query.sid+'';
 
+    request({
+        url: auth_ws,
+        json: true
+    }, function (error, response, data) {
 
+        if (!error && response.statusCode === 200) {
+            var api_token = data.client;
 
+            var roomId = api_token;
+            var id = Math.round((Math.random() * 1000000));
 
-            request({
-                body: JSON.parse(message),
-                url: api_req_url,
-                json: true
-            }, function (error, response, body) {
+            user = {};
+            user[id] = ws;
 
-                if (!error && response.statusCode === 200) {
-                    //rooms[roomId][cl].send(JSON.stringify(body));
-                    //return var request_json_body = JSON.stringify(body);
-                    for (var cl in rooms[roomId]) {
-                        rooms[roomId][cl].send(JSON.stringify(body));
+            if(Object.is(rooms[roomId])) {
+                rooms[roomId] = {};
+            }
+
+            rooms[roomId][id] = user[id];
+
+            user[id].send(JSON.stringify(data));
+
+            var api_req_url ='http://dserver.ddns.net/api/v1/ws?api_token='+api_token+'';
+
+            ws.on('message', function(message) {
+
+                request({
+                    body: JSON.parse(message),
+                    url: api_req_url,
+                    json: true
+                }, function (error, response, body) {
+
+                    if (!error && response.statusCode === 200) {
+
+                        if(body.clients) {
+
+                            for (var i in body.clients) {
+                                var roomId = body.clients[i];
+                                for (var cl in rooms[roomId]) {
+                                    rooms[roomId][cl].send(JSON.stringify(body.data));
+                                }
+                                //rooms[body.clients[i]][cl].send(JSON.stringify('ИНФА для юзеров'));
+                                //console.log(rooms[roomId][cl]);
+                                //console.log(cl);
+                            }
+
+                        }
+                        /*
+                        for (var cl in rooms[roomId]) {
+                            rooms[roomId][cl].send(JSON.stringify(body));
+                        }
+                        */
+
                     }
-                    //console.log(body) // Print the json response
-                }
+                });
+
             });
 
-            //rooms[roomId][cl].send(request_json_body);
-            //cl.send(message);
-            //rooms[roomId][cl].send(message);
-            //cl[key].send(message);
+            ws.on('close', function() {
+                //console.log('соединение закрыто ' + id);
+                delete rooms[roomId][id];
+                //delete clients[id];
+            });
 
-        //for (var cl in rooms[roomId]) {
-
-            //console.log(cl);
-            //clients[cl].send(message);
-
-        // for (var key in cl) {
-        //     //clients[key].send(JSON.stringify(ws));
-        //     cl[key].send(message);
-        // }
-        //}
-
-
-
+        }
     });
 
-    ws.on('close', function() {
-        console.log('соединение закрыто ' + id);
-        delete rooms[roomId][id];
-        //delete clients[id];
-    });
+//var roomId = location.query.sid;
+//var id = Math.round((Math.random() * 1000000));
+
+//user = {};
+//user[id] = ws;
+
+//if(Object.is(rooms[roomId])) {
+//    rooms[roomId] = {};
+//}
+
+//rooms[roomId][id] = user[id];
+
+
+
+
 
     /*
     ws.on('message', function incoming(message) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use DB;
 
 class APIController extends Controller
 {
@@ -85,4 +86,35 @@ class APIController extends Controller
     {
         //
     }
+
+
+    public function ws(Request $request)
+    {
+
+       $users = User::get();
+       $clients = array_pluck($users, 'api_token');
+
+       $data = [
+            'clients' => $clients,
+            'data' => $request->message,
+        ];
+        return response()->json($data);
+        #return response()->json($request->all());
+    }
+
+    public function auth_ws(Request $request)
+    {
+        $user = DB::table('sessions')->find($request->sid);
+        $user = User::find($user->user_id);
+
+        $data = [
+            'client' => $user->api_token,
+            'method' => 'Методы после инициализации',
+            'data' => 'Данные после инициализации...',
+        ];
+        return response()->json($data);
+
+        #return response()->json($user);
+    }
+
 }
