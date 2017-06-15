@@ -33,7 +33,7 @@
         name: 'VueCrypt',
 
         //props: ['testList'],
-
+        props:["socket"],
 /*
         props: {
             // простая проверка типа (`null` означает допустимость любого типа)
@@ -70,6 +70,48 @@
             }
         },*/
 
+        methods: {
+
+            testData: function () {
+                //var incomingData = JSON.parse(event.data);
+
+                this.socket.onmessage = function(event) {
+                    var incomingData = JSON.parse(event.data);
+                    //this.messages.push({id:1, text: incomingData.data});
+                    console.log(incomingData);
+                }
+
+                /*console.log(event);*/
+                /*
+                this.socket.onmessage = function(event) {
+                var incomingData = JSON.parse(event.data);
+               // var incomingMessagedata = JSON.parse(incomingMessage);
+
+
+
+                    console.log(incomingData);
+
+
+                   // console.log(JSON.parse(incomingMessage));
+                }
+                */
+
+
+                this.messages.push({id:1, text: 'test good'});
+            }
+            // обработчик входящих сообщений
+//            window.socket.onmessage = function(event) {
+//                var incomingMessage = event.data;
+//                console.log(incomingMessage);
+//            }
+
+//            getData: function (data) {
+//                this.messages = data;
+//                console.log(data);
+//                //this.dataProp = 'data1';
+//                //return this.dataProp = 'data1';
+//            }
+        },
 /*
         methods: {
             getData: function (data) {
@@ -89,7 +131,7 @@
         },*/
         components: {
             Rcrypt
-        }
+        },
 
         /*
         data(){
@@ -123,8 +165,28 @@
         },
 */
 
-//        mounted() {
-//            console.log(this)
-//        }
+
+        mounted() {
+
+            //this.socket.onmessage = this.testData(event);
+            //console.log(x);
+            this.testData();
+
+
+//           this.ws.onmessage = function(event) {
+//                var incomingData = JSON.parse(event.data);
+//               console.log(incomingData);
+//           }
+
+
+            //console.log(this.socket.onmessage);
+
+            //this.testData();
+            //console.log(this.socket);
+            //this.testData();
+
+
+            //console.log(window.socket)
+        }
     }
 </script>

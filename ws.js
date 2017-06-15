@@ -66,7 +66,7 @@ wss.on('connection', function connection(ws, req) {
 
             rooms[roomId][id] = user[id];
 
-            user[id].send(JSON.stringify(data));
+            user[id].send(JSON.stringify({'method':data.method, 'data':data.data}));
 
             var api_req_url ='http://dserver.ddns.net/api/v1/ws?api_token='+api_token+'';
 
@@ -83,9 +83,11 @@ wss.on('connection', function connection(ws, req) {
                         if(body.clients) {
 
                             for (var i in body.clients) {
-                                var roomId = body.clients[i];
-                                for (var cl in rooms[roomId]) {
-                                    rooms[roomId][cl].send(JSON.stringify(body.data));
+                                var clients = body.clients[i];
+
+                                for (var cl in rooms[clients]) {
+                                        rooms[clients][cl].send(JSON.stringify({'method':body.method, 'data':body.data}));
+
                                 }
                                 //rooms[body.clients[i]][cl].send(JSON.stringify('ИНФА для юзеров'));
                                 //console.log(rooms[roomId][cl]);

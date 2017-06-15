@@ -4167,83 +4167,38 @@ module.exports = g;
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+"use strict";
 
 __webpack_require__(41);
 
 window.Vue = __webpack_require__(74);
 
-/*var CryptoJS = require("crypto-js");
-Vue.use(CryptoJS);*/
-
-//Vue.use(require('vue-resource-2'));
-//Vue.use(require('vue-router'));
-
-//Vue.component('VueCrypt', require('./components/Vuecrypt.vue'));
-
-/*
-var CryptoJS = require("crypto-js");
-
-var data = "123";
-var key = '59b6ab46d379b89d794c87b74a511fbd59b6ab46d379b89d794c87b74a511fbd';
-var iv = '0aaff094b6dc29742cc98a4bac8bc8f9';
-
-var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(data), CryptoJS.enc.Hex.parse(key), { iv: CryptoJS.enc.Hex.parse(iv) });
-
-console.log('Ciphertext: [' + encrypted.ciphertext + ']');
-console.log('Key:        [' + encrypted.key + ']');
-//cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Hex.parse(encrypted.ciphertext.toString())});
-
-cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Hex.parse(encrypted.ciphertext.toString())});
-var decrypted = CryptoJS.AES.decrypt(cipherParams, CryptoJS.enc.Hex.parse(key), { iv: CryptoJS.enc.Hex.parse(iv) });
-
-console.log( 'Cleartext:  [' + decrypted.toString(CryptoJS.enc.Utf8) + ']');
-*/
-
-//Vue.component('Sign', require('./components/Sign.vue'));
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 //import VueRouter from 'vue-router'
 //Vue.use(VueRouter)
 
-//import Sign from './components/Sign.vue';
-
-//Vue.component('example', require('./components/Example.vue'));
 Vue.component('vuecrypt', __webpack_require__(71));
-//Vue.component('langdetect', require('./components/LangDetect.vue'));
-//Vue.component('rategermenu', require('./components/RategerMenu.vue'));
-//Vue.component('sign', require('./components/Sign.vue'));
+
+//VueWebsocket = new WebSocket('ws://dserver.ddns.net:8081?sid='+window.Laravel.sid);
+//Vue.use(VueWebsocket);
+
+// import VueWebsocket from "vue-websocket";
+// Vue.use(VueWebsocket, "ws://dserver.ddns.net:8081", {
+//     reconnection: false
+// });
+
 
 var app = new Vue({
     el: '#app',
-    props: {}
-    //messages: [String, Number],
-    //monthMessage: [String, Number],
-
-    /*
-        data () {
-            return {
-                content: "I've been proxied!",
-            }
-        },
-    */
-
-    //components: {
-    // <my-component> будет доступен только в шаблоне родителя
-    //    'my-component': Child
-    //}
-    //components: { VueCrypt }
+    data: function data() {
+        return {
+            ws: null
+        };
+    },
+    created: function created() {
+        this.ws = new WebSocket('ws://dserver.ddns.net:8081?sid=' + window.Laravel.sid);
+    }
 });
 
 /***/ }),
@@ -5189,7 +5144,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: 'VueCrypt',
 
     //props: ['testList'],
-
+    props: ["socket"],
     /*
             props: {
                 // простая проверка типа (`null` означает допустимость любого типа)
@@ -5223,6 +5178,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             },*/
 
+    methods: {
+
+        testData: function testData() {
+            //var incomingData = JSON.parse(event.data);
+
+            this.socket.onmessage = function (event) {
+                var incomingData = JSON.parse(event.data);
+                //this.messages.push({id:1, text: incomingData.data});
+                console.log(incomingData);
+            };
+
+            /*console.log(event);*/
+            /*
+            this.socket.onmessage = function(event) {
+            var incomingData = JSON.parse(event.data);
+            // var incomingMessagedata = JSON.parse(incomingMessage);
+                   console.log(incomingData);
+                 // console.log(JSON.parse(incomingMessage));
+            }
+            */
+
+            this.messages.push({ id: 1, text: 'test good' });
+        }
+        // обработчик входящих сообщений
+        //            window.socket.onmessage = function(event) {
+        //                var incomingMessage = event.data;
+        //                console.log(incomingMessage);
+        //            }
+
+        //            getData: function (data) {
+        //                this.messages = data;
+        //                console.log(data);
+        //                //this.dataProp = 'data1';
+        //                //return this.dataProp = 'data1';
+        //            }
+    },
     /*
             methods: {
                 getData: function (data) {
@@ -5242,7 +5233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },*/
     components: {
         Rcrypt: __WEBPACK_IMPORTED_MODULE_0__Rcrypt_vue___default.a
-    }
+    },
 
     /*
     data(){
@@ -5273,9 +5264,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     */
 
-    //        mounted() {
-    //            console.log(this)
-    //        }
+    mounted: function mounted() {
+
+        //this.socket.onmessage = this.testData(event);
+        //console.log(x);
+        this.testData();
+
+        //           this.ws.onmessage = function(event) {
+        //                var incomingData = JSON.parse(event.data);
+        //               console.log(incomingData);
+        //           }
+
+
+        //console.log(this.socket.onmessage);
+
+        //this.testData();
+        //console.log(this.socket);
+        //this.testData();
+
+
+        //console.log(window.socket)
+    }
 });
 
 /***/ }),
@@ -38679,7 +38688,7 @@ var Component = __webpack_require__(17)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Rcrypt.vue"
+Component.options.__file = "D:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Rcrypt.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Rcrypt.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -38713,7 +38722,7 @@ var Component = __webpack_require__(17)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Vuecrypt.vue"
+Component.options.__file = "D:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Vuecrypt.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuecrypt.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -38790,7 +38799,7 @@ if (false) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.3
+ * Vue.js v2.3.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -43219,7 +43228,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.3';
+Vue$3.version = '2.3.4';
 
 /*  */
 
@@ -43710,6 +43719,7 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
+      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {

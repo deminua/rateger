@@ -8,63 +8,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @if (!auth()->guest())<meta name="sid" content="{{ session()->getId() }}">@endif
+
+    <script type="text/javascript">
+        <?php
+            $security['csrfToken'] = csrf_token();
+            if(!auth()->guest()) { $security['sid'] = session()->getId(); }
+
+            ?>
+            window.Laravel = <?php echo json_encode($security); ?>
+    </script>
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <script>
-
-
-         function start(){
-            // создать подключение
-            var socket = new WebSocket('ws://dserver.ddns.net:8081?sid={{ session()->getId() }}');
-
-            // отправить сообщение из формы publish
-            document.forms.publish.onsubmit = function() {
-
-                var data = {
-                    user_id: "1",
-                    token: "777",
-                    text: "Отправка из document.forms.publish.onsubmit функции",
-                    message: this.message.value
-                };
-                var outgoingMessage = JSON.stringify(data);
-                this.message.value = '';
-
-                socket.send(outgoingMessage);
-                return false;
-            };
-
-
-            // обработчик входящих сообщений
-            socket.onmessage = function(event) {
-                var incomingMessage = event.data;
-                showMessage(incomingMessage);
-            };
-
-             socket.onclose = function(){
-                 //try to reconnect in 5 seconds
-                 setTimeout(function(){start()}, 5000);
-             };
-
-            // показать сообщение в div#subscribe
-            function showMessage(message) {
-                var messageElem = document.createElement('div');
-                messageElem.appendChild(document.createTextNode(message));
-                document.getElementById('subscribe').appendChild(messageElem);
-            }
-
-        };
-
-
-         window.onload = function() {
-             start();
-         };
-
-
-
-    </script>
 
 </head>
 <body>
@@ -75,7 +33,7 @@
             <div class="col-sm-12 user">
 
 
-
+                <vuecrypt :socket="ws"></vuecrypt>
 
 
 <!-- форма для отправки сообщений -->
@@ -88,7 +46,6 @@
 
 <!-- здесь будут появляться входящие сообщения -->
 <div class="form-group" id="subscribe"></div>
-
 
 
             </div>

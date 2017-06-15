@@ -95,8 +95,9 @@ class APIController extends Controller
        $clients = array_pluck($users, 'api_token');
 
        $data = [
-            'clients' => $clients,
-            'data' => $request->message,
+           'clients' => $clients,
+           'data' => $request->d,
+           'method' => $request->m,
         ];
         return response()->json($data);
         #return response()->json($request->all());
@@ -109,7 +110,7 @@ class APIController extends Controller
 
         $data = [
             'client' => $user->api_token,
-            'method' => 'Методы после инициализации',
+            'method' => 'testData',
             'data' => 'Данные после инициализации...',
         ];
         return response()->json($data);
