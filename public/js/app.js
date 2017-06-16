@@ -4167,9 +4167,8 @@ module.exports = g;
 
 /***/ }),
 /* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
 __webpack_require__(41);
 
@@ -5181,13 +5180,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
 
         testData: function testData() {
-            //var incomingData = JSON.parse(event.data);
+
+            var mpush = this.messages;
 
             this.socket.onmessage = function (event) {
                 var incomingData = JSON.parse(event.data);
-                //this.messages.push({id:1, text: incomingData.data});
-                console.log(incomingData);
+                mpush.push({ id: 1, text: incomingData });
             };
+
+            //                function onMessage(evt, msg) {
+            //
+            //                    //this.parentMessage = evt;
+            //                    //return this.parentMessage;
+            //
+            //                    msg.push({id:1, text: 'test good'+evt});
+            //                    console.log(evt);
+            //                }
+
+            //this.messages.push({id:1, text: 'test good'+evt});
+
+            //this.parentMessage = data;
+            //var incomingData = JSON.parse(event.data);
+            //                var incomingData = {};
+            //
+            //                socket.onmessage = function(event) {
+            //                    var incomingData = JSON.parse(event.data);
+            //                    console.log(incomingData);
+            //
+            //                }
+
+            //console.log(incomingData);
+
+            //this.messages.push({id:1, text: 'test good'+data});
+
+            //                this.socket.onmessage = function(event) {
+            //                    var incomingData = JSON.parse(event.data);
+            //                    //this.messages.push({id:1, text: incomingData.data});
+            //                    console.log(incomingData);
+            //                }
 
             /*console.log(event);*/
             /*
@@ -5198,9 +5228,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                  // console.log(JSON.parse(incomingMessage));
             }
             */
-
-            this.messages.push({ id: 1, text: 'test good' });
         }
+
         // обработчик входящих сообщений
         //            window.socket.onmessage = function(event) {
         //                var incomingMessage = event.data;
@@ -5266,9 +5295,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     mounted: function mounted() {
 
-        //this.socket.onmessage = this.testData(event);
-        //console.log(x);
         this.testData();
+        //this.socket.onmessage = this.testData(event);
+        //var incomingData = '';
+        // this.testData();
+
+
+        //console.log(onMessage.bind());
+        //console.log(onMessage.res);
+
+        //testd('123');
+
+
+        //console.log(this.socket.onmessage);
+        //console.log(test1());
+        //this.testData();
+
 
         //           this.ws.onmessage = function(event) {
         //                var incomingData = JSON.parse(event.data);
@@ -38688,7 +38730,7 @@ var Component = __webpack_require__(17)(
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Rcrypt.vue"
+Component.options.__file = "C:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Rcrypt.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Rcrypt.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -38722,7 +38764,7 @@ var Component = __webpack_require__(17)(
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Vuecrypt.vue"
+Component.options.__file = "C:\\laragon\\www\\rateger\\resources\\assets\\js\\components\\Vuecrypt.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Vuecrypt.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -38799,7 +38841,7 @@ if (false) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.4
+ * Vue.js v2.3.3
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -43228,7 +43270,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.4';
+Vue$3.version = '2.3.3';
 
 /*  */
 
@@ -43719,7 +43761,6 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
-      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {

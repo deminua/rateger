@@ -28,8 +28,11 @@ Route::get('session', function (\Request $request) {
     return  dd(session());
 });
 
-Route::get('msg/{id}', function ($id) {
-    return view('user.msg', ['id'=>$id]);
+    Route::get('msg/{id}', function ($id) {
+        return view('user.msg', ['id'=>$id]);
+    });
+    Route::get('msg2/{id}', function ($id) {
+        return view('user.msg2', ['id'=>$id]);
     });
 
 Route::get('phpinfo', function () {

@@ -73,13 +73,44 @@
         methods: {
 
             testData: function () {
-                //var incomingData = JSON.parse(event.data);
+
+                var mpush = this.messages;
 
                 this.socket.onmessage = function(event) {
                     var incomingData = JSON.parse(event.data);
-                    //this.messages.push({id:1, text: incomingData.data});
-                    console.log(incomingData);
+                    mpush.push({id:1, text: incomingData});
                 }
+
+//                function onMessage(evt, msg) {
+//
+//                    //this.parentMessage = evt;
+//                    //return this.parentMessage;
+//
+//                    msg.push({id:1, text: 'test good'+evt});
+//                    console.log(evt);
+//                }
+
+                //this.messages.push({id:1, text: 'test good'+evt});
+
+                //this.parentMessage = data;
+                //var incomingData = JSON.parse(event.data);
+//                var incomingData = {};
+//
+//                socket.onmessage = function(event) {
+//                    var incomingData = JSON.parse(event.data);
+//                    console.log(incomingData);
+//
+//                }
+
+                //console.log(incomingData);
+
+                //this.messages.push({id:1, text: 'test good'+data});
+
+//                this.socket.onmessage = function(event) {
+//                    var incomingData = JSON.parse(event.data);
+//                    //this.messages.push({id:1, text: incomingData.data});
+//                    console.log(incomingData);
+//                }
 
                 /*console.log(event);*/
                 /*
@@ -97,8 +128,9 @@
                 */
 
 
-                this.messages.push({id:1, text: 'test good'});
             }
+
+
             // обработчик входящих сообщений
 //            window.socket.onmessage = function(event) {
 //                var incomingMessage = event.data;
@@ -168,9 +200,24 @@
 
         mounted() {
 
+
+
+           this.testData();
             //this.socket.onmessage = this.testData(event);
-            //console.log(x);
-            this.testData();
+            //var incomingData = '';
+            // this.testData();
+
+
+
+            //console.log(onMessage.bind());
+            //console.log(onMessage.res);
+
+            //testd('123');
+
+
+            //console.log(this.socket.onmessage);
+            //console.log(test1());
+            //this.testData();
 
 
 //           this.ws.onmessage = function(event) {
