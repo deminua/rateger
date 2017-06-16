@@ -110,8 +110,9 @@ class APIController extends Controller
 
         $data = [
             'client' => $user->api_token,
-            'method' => 'testData',
-            'data' => 'Данные после инициализации...',
+            //'method' => 'testData',
+            'method' => 'testData2',
+            'data' => 'Данные после инициализации...2',
         ];
         return response()->json($data);
 

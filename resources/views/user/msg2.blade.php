@@ -27,7 +27,7 @@
                     d: {
                         'message': this.message.value
                     },
-                    m: 'send_message'
+                    m: 'testData3'
                 };
                 var outgoingMessage = JSON.stringify(data);
                 this.message.value = '';

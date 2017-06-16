@@ -32,21 +32,7 @@
 
         name: 'VueCrypt',
 
-        //props: ['testList'],
         props:["socket"],
-/*
-        props: {
-            // простая проверка типа (`null` означает допустимость любого типа)
-            propA: null,
-            // несколько допустимых типов
-            content: [String, Number],
-            propC: Number,
-        },
-        */
-/*        props: {
-            yearMessage: [String, Number],
-            monthMessage: [String, Number],
-        },*/
 
         data(){
             return {
@@ -59,181 +45,47 @@
             }
             },
 
-/*        data(){
-            return {
-                messages: [
-                    { text: 'Посадить дерево' },
-                    { text: 'Построить дом' },
-                    { text: 'Вырастить сына' }
-                ],
-                testList: 'list data',
-            }
-        },*/
-
         methods: {
 
-            testData: function () {
+            testData: function (data) {
 
-                var mpush = this.messages;
-
-                this.socket.onmessage = function(event) {
-                    var incomingData = JSON.parse(event.data);
-                    mpush.push({id:1, text: incomingData});
-                }
-
-//                function onMessage(evt, msg) {
+                this.messages.push({id:1, text: data});
+                //console.log(data);
+//                var mpush = this.messages;
 //
-//                    //this.parentMessage = evt;
-//                    //return this.parentMessage;
-//
-//                    msg.push({id:1, text: 'test good'+evt});
-//                    console.log(evt);
-//                }
-
-                //this.messages.push({id:1, text: 'test good'+evt});
-
-                //this.parentMessage = data;
-                //var incomingData = JSON.parse(event.data);
-//                var incomingData = {};
-//
-//                socket.onmessage = function(event) {
-//                    var incomingData = JSON.parse(event.data);
-//                    console.log(incomingData);
-//
-//                }
-
-                //console.log(incomingData);
-
-                //this.messages.push({id:1, text: 'test good'+data});
-
 //                this.socket.onmessage = function(event) {
 //                    var incomingData = JSON.parse(event.data);
-//                    //this.messages.push({id:1, text: incomingData.data});
-//                    console.log(incomingData);
+//                    mpush.push({id:1, text: incomingData});
 //                }
 
-                /*console.log(event);*/
-                /*
-                this.socket.onmessage = function(event) {
-                var incomingData = JSON.parse(event.data);
-               // var incomingMessagedata = JSON.parse(incomingMessage);
+            },
 
-
-
-                    console.log(incomingData);
-
-
-                   // console.log(JSON.parse(incomingMessage));
-                }
-                */
-
-
+            testData2: function (data) {
+                this.messages.push({id:2, text: data});
+            },
+            testData3: function (data) {
+                this.messages.push({id:3, text: data});
             }
 
-
-            // обработчик входящих сообщений
-//            window.socket.onmessage = function(event) {
-//                var incomingMessage = event.data;
-//                console.log(incomingMessage);
-//            }
-
-//            getData: function (data) {
-//                this.messages = data;
-//                console.log(data);
-//                //this.dataProp = 'data1';
-//                //return this.dataProp = 'data1';
-//            }
         },
-/*
-        methods: {
-            getData: function (data) {
-                this.messages = data;
-                console.log(data);
-                //this.dataProp = 'data1';
-                //return this.dataProp = 'data1';
-            }
-        },
-*/
 
-/*        mounted() {
-
-                this.getData('textvar текст 123');
-            //this.getData('p2','p2','monthMessage');
-            //console.log(this)
-        },*/
         components: {
             Rcrypt
         },
 
-        /*
-        data(){
-            return {
-                //datacrypt2: this.$parent.propB,
-                //datacrypt2: this.propB,
-                editForm: {
-                    name: '',
-                    email: ''
-                },
-                editPencil: 'glyphicon glyphicon-pencil',
-                content2: this.content,
-
-            }
-        },
-        */
-
-
-        /*
-        data(){
-            return {
-                test1: this.products,
-                editForm: {
-                    name: '',
-                    email: ''
-                },
-                editPencil: 'glyphicon glyphicon-pencil',
-                show: false,
-
-            }
-        },
-*/
-
-
         mounted() {
 
+            //var mpush = this.messages;
+            var gomethod = this;
 
+            this.socket.onmessage = function(event) {
+                var incomingData = JSON.parse(event.data);
+               // this.testData(incomingData);
+                //var namef = incomingData.method;
+                gomethod[incomingData.method](incomingData.data);
+            }
 
-           this.testData();
-            //this.socket.onmessage = this.testData(event);
-            //var incomingData = '';
-            // this.testData();
-
-
-
-            //console.log(onMessage.bind());
-            //console.log(onMessage.res);
-
-            //testd('123');
-
-
-            //console.log(this.socket.onmessage);
-            //console.log(test1());
-            //this.testData();
-
-
-//           this.ws.onmessage = function(event) {
-//                var incomingData = JSON.parse(event.data);
-//               console.log(incomingData);
-//           }
-
-
-            //console.log(this.socket.onmessage);
-
-            //this.testData();
-            //console.log(this.socket);
-            //this.testData();
-
-
-            //console.log(window.socket)
+           //this.testData();
         }
     }
 </script>
