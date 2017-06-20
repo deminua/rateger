@@ -35,6 +35,11 @@ Route::get('session', function (\Request $request) {
         return view('user.msg2', ['id'=>$id]);
     });
 
+
+    Route::get('three1', function () {
+        return view('test.three1');
+    });
+
 Route::get('phpinfo', function () {
         phpinfo();
 });

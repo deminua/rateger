@@ -1,5 +1,6 @@
 
 require('./bootstrap');
+//require('./three');
 
 window.Vue = require('vue');
 
@@ -7,6 +8,7 @@ window.Vue = require('vue');
 //Vue.use(VueRouter)
 
 Vue.component('vuecrypt', require('./components/Vuecrypt.vue'));
+Vue.component('three1', require('./components/Three1.vue'));
 
 //VueWebsocket = new WebSocket('ws://dserver.ddns.net:8081?sid='+window.Laravel.sid);
 //Vue.use(VueWebsocket);
@@ -25,7 +27,9 @@ const app = new Vue({
         }
     },
     created () {
-        this.ws = new WebSocket('ws://dserver.ddns.net:8081?sid='+window.Laravel.sid);
+        if (typeof window.Laravel.sid == 'string') {
+            this.ws = new WebSocket('ws://dserver.ddns.net:8081?sid='+window.Laravel.sid);
+        }
     }
 
     });
